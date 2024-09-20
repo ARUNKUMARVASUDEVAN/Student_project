@@ -5,57 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Test Information</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://www.healtheuropa.com/wp-content/uploads/2021/03/iStock-972617570.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body>
-    <div class="max-w-lg mx-auto mt-10">
-        <h1 class="text-2xl font-bold mb-6 text-center">Upload Test Information</h1>
+    <div class="w-1/2 max-w-full mx-auto mt-10 mb-10 bg-transparent p-8 border border-gray-300 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-6 text-center">Test Information</h1>
 
         <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
             <div class="space-y-4">
+                <!-- Test Category Dropdown -->
                 <div>
-                    {{ form.test_category.label_tag }}
-                    {{ form.test_category }}
-                    {% if form.test_category.errors %}
-                        <div class="text-red-600">{{ form.test_category.errors }}</div>
-                    {% endif %}
+                    <label for="test_category" class="block text-gray-800"><b>Test Category</b></label>
+                    <select id="test_category" name="test_category" class="block w-full p-2 border border-gray-300 rounded-md" onchange="populateTestDetails()">
+                        <option value="">Select a test category</option>
+                        <option value="BIL001">Bilirubin Total</option>
+                        <option value="PFT002">Plethysmography</option>
+                        <option value="IMM001">ANA Test</option>
+                        <option value="IMM002">Rheumatoid Factor Test</option>
+                        <option value="HEP003">Hepatitis B Surface Antigen Test</option>
+                    </select>
                 </div>
 
+                <!-- Test Name -->
                 <div>
-                    {{ form.test_name.label_tag }}
-                    {{ form.test_name }}
-                    {% if form.test_name.errors %}
-                        <div class="text-red-600">{{ form.test_name.errors }}</div>
-                    {% endif %}
+                    <label for="test_name" class="block text-gray-800"><b>Test Name</b></label>
+                    <input type="text" id="test_name" name="test_name" class="block w-full p-2 border border-gray-300 rounded-md" readonly>
                 </div>
 
+                <!-- Test ID -->
                 <div>
-                    {{ form.test_fees.label_tag }}
-                    {{ form.test_fees }}
-                    {% if form.test_fees.errors %}
-                        <div class="text-red-600">{{ form.test_fees.errors }}</div>
-                    {% endif %}
+                    <label for="test_id" class="block text-gray-800"><b>Test ID</b></label>
+                    <input type="text" id="test_id" name="test_id" class="block w-full p-2 border border-gray-300 rounded-md" readonly>
                 </div>
 
+                <!-- Test Fees -->
                 <div>
-                    {{ form.test_id.label_tag }}
-                    {{ form.test_id }}
-                    {% if form.test_id.errors %}
-                        <div class="text-red-600">{{ form.test_id.errors }}</div>
-                    {% endif %}
+                    <label for="test_fees" class="block text-gray-800"><b>Test Fees</b></label>
+                    <input type="text" id="test_fees" name="test_fees" class="block w-full p-2 border border-gray-300 rounded-md" readonly>
                 </div>
 
+                <!-- Test Description (Hidden) -->
+                <input type="hidden" id="test_description" name="test_description">
+
+                <!-- Test Duration (Hidden) -->
+                <input type="hidden" id="test_duration" name="test_duration">
+
+                <!-- Test Image (Hidden) -->
+                <input type="hidden" id="image" name="image">
+
+                <!-- Test Image Preview -->
                 <div>
-                    {{ form.patient_id.label_tag }}
-                    {{ form.patient_id }}
-                    {% if form.patient_id.errors %}
-                        <div class="text-red-600">{{ form.patient_id.errors }}</div>
-                    {% endif %}
+                    <label class="block text-gray-800"><b>Test Image Preview</b></label>
+                    <img id="test_image_preview" class="block w-full h-48 object-cover rounded-md" alt="Test Image Preview">
                 </div>
             </div>
 
-            <button type="submit" class="w-full py-3 px-6 bg-teal-500 hover:bg-teal-700 rounded-lg text-white text-lg font-bold mt-6">Submit</button>
+            <button type="submit" class="w-full py-3 px-6 bg-white-500 hover:bg-blue-700 rounded-lg text-black text-lg font-bold mt-6">Submit</button>
         </form>
     </div>
+
+    <script>
+        const testDetails = {
+            "BIL001": {
+                "name": "Bilirubin Total",
+                "fees": "800 INR",
+                "description": "Measures bilirubin levels in the blood to check liver function.",
+                "duration": "24 hours",
+                "image": "https://avatars.mds.yandex.net/i?id=fab20d44de0cdf467f03867fa087089cc8bdeed0-4495446-images-thumbs&n=13"
+            },
+            "PFT002": {
+                "name": "Plethysmography",
+                "fees": "500 INR",
+                "description": "Measures changes in volume within an organ or whole body.",
+                "duration": "15 minutes",
+                "image": "https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_65b5045aa0b15a134463ca44_65b50485bb12e30bc05c3360/scale_1200"
+            },
+            // Add other test details as needed
+        };
+
+        function populateTestDetails() {
+            const selectedCategory = document.getElementById("test_category").value;
+
+            if (testDetails[selectedCategory]) {
+                const details = testDetails[selectedCategory];
+
+                // Fill in visible fields
+                document.getElementById("test_name").value = details.name;
+                document.getElementById("test_id").value = selectedCategory;
+                document.getElementById("test_fees").value = details.fees;
+
+                // Fill in hidden fields
+                document.getElementById("image").value = details.image;
+                document.getElementById("test_description").value = details.description; 
+                document.getElementById("test_duration").value = details.duration; 
+
+                document.getElementById("test_image_preview").src = details.image;
+            } else {
+                // Clear fields if no valid category is selected
+                document.getElementById("test_name").value = '';
+                document.getElementById("test_id").value = '';
+                document.getElementById("test_fees").value = '';
+                document.getElementById("image").value = '';
+                document.getElementById("test_description").value = '';
+                document.getElementById("test_duration").value = '';
+                document.getElementById("test_image_preview").src = '';
+            }
+        }
+    </script>
 </body>
 </html>

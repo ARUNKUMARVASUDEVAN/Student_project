@@ -13,9 +13,10 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            
         }
         .container{
-            display: flex;
+            display:flex;
             height: 600px;
         }
         header {
@@ -54,35 +55,23 @@
         header .buttons a:hover {
             opacity: 0.7;
         }
-        nav {
-            width: 20%;
-            margin-top: 35px;
-        }
-        nav a {
-            display: block;
-            padding: 15px 20px;
-            text-decoration: none;
-            color: black;
-            margin-bottom: 5px;
-            border-radius: 5px;
-            background-color: #f0f0f0;
-            transition: 0.3s ease;
-        }
-        nav a:hover {
-            background-color: #e0e0e0;
-            transform: translateY(-2px);
-        }
+      
+        
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
+            display:flex;
+            flex-wrap:wrap;
             justify-content: space-between;
             padding: 20px;
             width: 80%;
+            gap: 20px;
+            
         }
         .gallery .image-container {
             margin: 10px;
             text-align: center;
         }
+            
+        
         .gallery img {
             width: 200px;
             height: 150px;
@@ -90,18 +79,22 @@
             cursor: pointer;
             border-radius: 15px;
             transition: 0.3s ease-in;
+            
         }
         .gallery img:hover {
             width: 250px;
             height: 200px;
+            
+           
         }
         footer {
             text-align: center;
             padding: 10px 0;
             background-color: rgba(105, 97, 97, 0.5);
             border-top: 2px solid #ddddddef;
-            position: relative;
+            position:absolute;
             width: 100%;
+            bottom:0;
         }
     </style>
 </head>
@@ -123,12 +116,7 @@
 <hr style="color: lightblue;">
 
 <div class="container">
-    <nav>
-        <a href="#"><strong>Home</strong></a>
-        <a href="#"><strong>About</strong></a>
-        <a href="#"><strong>Services</strong></a>
-        <a href="#"><strong>Contact</strong></a>
-    </nav>
+    
 
     <div class="gallery">
         <div class="image-container">
@@ -147,7 +135,7 @@
         {% if request.user.is_authenticated %}
         <div class="image-container">
             <a href="{% url 'dashboard' %}">
-                <img src="https://cdn.dribbble.com/users/594915/screenshots/2127905/attachments/387705/material_dark_earnings_and_expense.jpg" alt="Upload Test Information">
+                <img src="https://t3.ftcdn.net/jpg/06/64/05/72/240_F_664057288_5EidB7k69r2boHTl1Lp1NiaDYWJoJQZf.jpg" alt="Upload Test Information">
             </a>
             <p style="color: black;"><b>Dashboard</b></p>
         </div>
@@ -159,9 +147,9 @@
             <a href="http://127.0.0.1:8000/upload_test_info/">
                 <img src="https://t3.ftcdn.net/jpg/04/37/20/48/240_F_437204881_lLTZd3i7FXPHw0qViC8abHMIwcwbTu14.jpg" alt="Upload Test Information">
             </a>
-            <p style="color: black;"><b>Upload Test Information</b></p>
+            <p style="color: black;"><b>Test Information</b></p>
         </div>
-        <div class="image-container">
+        <div class="image-container" >
             <a href="http://127.0.0.1:8000/test_request/">
                 <img src="https://img.freepik.com/premium-vector/online-test-checking-answers-examination-test-quiz-student-test-employee-questionnaire-flat-vector-illustration-banner_128772-1833.jpg" alt="Test Request">
             </a>
@@ -171,7 +159,7 @@
             <a href="http://127.0.0.1:8000/upload_result/">
                 <img src="https://img.freepik.com/free-photo/white-cloud-with-download-icon-cloud-computing-technology-sign-symbol-3d-rendering_56104-1285.jpg" alt="Upload Result">
             </a>
-            <p style="color: black;"><b>Upload Result</b></p>
+            <p style="color: black;"><b>Appointment</b></p>
         </div>
         <div class="image-container">
             <a href="{% url 'test_report' %}">
@@ -179,11 +167,22 @@
             </a>
             <p style="color: black;"><b>Test Report</b></p>
         </div>
-    </div>
-   
-   
+        <div class="image-container">
+            <a href="{% url 'payment' %}">
+                <img src="https://t3.ftcdn.net/jpg/03/32/82/28/240_F_332822816_t4745s1KF1OUd9rVcc68aKbJlwp8qAQa.jpg" alt="Test Report">
+            </a>
+            <p style="color: black;"><b>Payment</b></p>
+        </div>
 
-  
+        <div class="image-container">
+            <a href="{% url 'bloodbank' %}">
+                <img src="https://t3.ftcdn.net/jpg/08/31/12/16/240_F_831121672_z8cVNO03hlRyzqZzoIZDpaGuUln9ElRN.jpg" alt="blood bank">
+            </a>
+            <p style="color: black;"><b>Blood Bank</b></p>
+        </div>
+
+
+        
 </div>
 
 <footer>

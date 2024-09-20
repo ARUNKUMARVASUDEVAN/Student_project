@@ -39,6 +39,24 @@
             <h2 class="text-lg font-bold">Upload Results</h2>
             <p class="text-4xl mt-2">{{ upload_result_count }}</p>
         </div>
+
+        <!-- Blood Donations Count -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-lg font-bold">Blood Donations</h2>
+            <p class="text-4xl mt-2">{{ blood_donation_count }}</p>
+        </div>
+
+        <!-- Donors Count -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-lg font-bold">Donors</h2>
+            <p class="text-4xl mt-2">{{ donor_count }}</p>
+        </div>
+
+        <!-- Online Payments Count -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+            <h2 class="text-lg font-bold">Online Payments</h2>
+            <p class="text-4xl mt-2">{{ online_payment_count }}</p>
+        </div>
     </div>
 
     <!-- Latest Tests -->
@@ -47,19 +65,25 @@
         <table class="min-w-full bg-white">
             <thead class="bg-gray-800 text-white">
                 <tr>
-                    <th class="w-1/4 py-2">Category</th>
                     <th class="w-1/4 py-2">Test Name</th>
                     <th class="w-1/4 py-2">Test Fees</th>
                     <th class="w-1/4 py-2">Patient ID</th>
+                    <th class="w-1/4 py-2">Approved</th> <!-- New column for approval status -->
                 </tr>
             </thead>
             <tbody class="text-gray-700">
                 {% for test in latest_tests %}
                 <tr>
-                    <td class="border px-4 py-2">{{ test.test_category.name }}</td>
                     <td class="border px-4 py-2">{{ test.test_name }}</td>
                     <td class="border px-4 py-2">{{ test.test_fees }}</td>
                     <td class="border px-4 py-2">{{ test.patient_id }}</td>
+                    <td class="border px-4 py-2">
+                        {% if test.is_approved %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

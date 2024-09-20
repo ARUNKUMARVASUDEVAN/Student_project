@@ -13,22 +13,17 @@ class TestCategory(models.Model):  # Renamed to PascalCase
 
 
 class UploadTestInformation(models.Model):
-    test_category = models.ForeignKey(
-        TestCategory,  # Referencing the renamed model directly
-        related_name='category', 
-        on_delete=models.CASCADE
-    )
-    test_name = models.CharField(max_length=255)
-    test_fees = models.FloatField()
-    test_id = models.CharField(max_length=255)
-    patient_id = models.CharField(max_length=255)
-    
-
-    class Meta:
-        verbose_name_plural ='Uploaded_test_info'
+    test_category = models.CharField(max_length=100)
+    test_name = models.CharField(max_length=100)
+    test_id = models.CharField(max_length=100)
+    test_fees = models.CharField(max_length=100)
+    test_description = models.TextField()
+    test_duration = models.CharField(max_length=100)
+    image = models.URLField()
 
     def __str__(self):
-        return str(self.test_category,self.test_name)
+        return self.test_name
+
 
 from django.db import models
 from django.utils import timezone
@@ -50,7 +45,8 @@ class Test_request_details(models.Model):
     country = models.CharField(max_length=255, default='India')
     email_id = models.EmailField(default='arun@gmail.com')
     time_requested = models.DateTimeField(default=timezone.now)  # New field to store the time of request
-    
+    is_approved=models.BooleanField(default=False)
+
     class Meta:
         verbose_name_plural = 'Test Request detail'
 
@@ -74,5 +70,70 @@ class upload_result(models.Model):
 
     def __str__(self):
         return str(self.patient_id)
+    
+
+class onlinepayments(models.Model):
+    upi=models.IntegerField()
+    amount=models.FloatField()
+
+    class Meta:
+        verbose_name_plural = 'onlinepayment'
+
+    def __str__(self):
+        return str(self.amount)
+    
+
+class blood_donation(models.Model):
+    patient_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    
+    BLOOD_GROUP_CHOICES = [
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+    ]
+    
+    blood_group = models.CharField(max_length=255, choices=BLOOD_GROUP_CHOICES, default='A+')
+    donation_date = models.DateField()
+
+    class Meta:
+        verbose_name_plural = 'Blood Donations'
+    
+    def __str__(self):
+        return self.blood_group
+
+
+class Donor(models.Model):
+    donor_name = models.CharField(max_length=255)
+    age = models.PositiveIntegerField()
+    BLOOD_GROUP_CHOICES = [
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+    ]
+    blood_group = models.CharField(max_length=255, choices=BLOOD_GROUP_CHOICES, default='A+')
+
+    mobile_number = models.CharField(max_length=15)
+    address = models.CharField(max_length=500)
+    units = models.PositiveIntegerField()
+    expiry_date = models.DateField()
+
+    def __str__(self):
+        return self.donor_name
+
+
+
+
+
 
 

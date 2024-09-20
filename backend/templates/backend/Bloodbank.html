@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bank</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url(https://avatars.mds.yandex.net/i?id=833a29cd5f7e991f1354c14cf494f1d7fb5c4665-12481490-images-thumbs&n=13);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+
+        }
+
+        .container {
+            width: 50%;
+            margin: 5% auto;
+            background-color: hwb(0 100% 0%);
+            opacity: 0.9;
+            padding: 20px;
+            border-color: red;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgb(255, 0, 0);
+            color: red;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"], button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .container input:focus {
+            background-color: #ff0000b9;
+            opacity: 0.5;
+            color: white;
+        }
+
+        .container input::placeholder {
+            color: white;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>&#x1F464; Blood Bank Options</h1>
+        
+        <!-- Options to choose -->
+        <label>
+            <input type="radio" name="blood_option" value="need_blood" id="needBlood">
+            I need blood
+        </label>
+        <label>
+            <input type="radio" name="blood_option" value="donate_blood" id="donateBlood">
+            I want to donate blood
+        </label>
+
+        <!-- Need Blood Form -->
+        <div id="needBloodForm" class="form-section">
+            <h2>Need Blood Form</h2>
+            <form action="{% url 'bloodbank' %}" method="POST">
+                {% csrf_token %}
+                {{ blood_donation_form.as_p }}
+                <center><button type="submit">Submit</button></center>
+            </form>
+        </div>
+
+        <!-- Donate Blood Form -->
+        <div id="donateBloodForm" class="form-section">
+            <h2>Donate Blood Form</h2>
+            <form action="{% url 'bloodbank' %}" method="POST">
+                {% csrf_token %}
+                {{ donor_form.as_p }}
+                
+                <center><button type="submit">Submit</button></center>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        const needBloodOption = document.getElementById('needBlood');
+        const donateBloodOption = document.getElementById('donateBlood');
+        const needBloodForm = document.getElementById('needBloodForm');
+        const donateBloodForm = document.getElementById('donateBloodForm');
+
+        needBloodOption.addEventListener('change', function () {
+            if (this.checked) {
+                needBloodForm.classList.add('active');
+                donateBloodForm.classList.remove('active');
+            }
+        });
+
+        donateBloodOption.addEventListener('change', function () {
+            if (this.checked) {
+                donateBloodForm.classList.add('active');
+                needBloodForm.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

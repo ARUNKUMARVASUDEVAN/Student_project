@@ -14,7 +14,7 @@
 
         <form method="post" action=".">
             {% csrf_token %}
-            
+
             <div class="mb-4">
                 <label for="first_name" class="block text-gray-700">First Name</label>
                 {{ form.first_name }}
@@ -50,14 +50,20 @@
                 {{ form.username }}
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 relative">
                 <label for="password1" class="block text-gray-700">Password</label>
-                {{ form.password1 }}
+                <div class="relative">
+                    {{ form.password1 }}
+                    <span class="absolute right-2 top-2 cursor-pointer text-lg" onclick="togglePasswordVisibility('id_password1', this)">&#128065;</span> <!-- Eye icon as Unicode -->
+                </div>
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4 relative">
                 <label for="password2" class="block text-gray-700">Repeat Password</label>
-                {{ form.password2 }}
+                <div class="relative">
+                    {{ form.password2 }}
+                    <span class="absolute right-2 top-2 cursor-pointer text-lg" onclick="togglePasswordVisibility('id_password2', this)">&#128065;</span> <!-- Eye icon as Unicode -->
+                </div>
             </div>
 
             {% if form.errors or form.non_field_errors %}
@@ -72,6 +78,18 @@
             <button type="submit" class="w-full py-3 px-6 bg-teal-500 hover:bg-teal-700 rounded-lg text-white text-lg font-bold">Submit</button>
         </form>
     </div>
+
+    <script>
+        function togglePasswordVisibility(fieldId, iconElement) {
+            var passwordField = document.getElementById(fieldId);
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
 </body>
 
 </html>

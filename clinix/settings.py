@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-y8gj(%g()760+1c1o9u0#2)i=2-*fvzx%@1s2i9-1)*(bshtu1"
-
+STRIPE_API_KEY="sk_test_51Q0xtvLLNZtro8Y9ptQ9XGsJy5rgIxPvukD4xhJ5h1qYp6VA5AvSeXh74Xb8suI0qsuWmx5vGkhi3AIgJlTqbGuO00SALTrsH3"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+   'django.middleware.csrf.CsrfViewMiddleware',  # This should be enabled
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

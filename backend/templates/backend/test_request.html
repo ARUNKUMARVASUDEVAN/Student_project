@@ -14,6 +14,12 @@
 <form method="post" action="." enctype="multipart/form-data">
     {% csrf_token %}
 
+     <!-- Approval Status Display -->
+     {% if form.instance.is_approved %}
+     <p class="text-green-600">Status: Approved</p>
+    {% else %}
+        <p class="text-yellow-600">Status: Pending Approval</p>
+    {% endif %}
     <div class="'space-y-4">
         {{ form.as_p }}
     </div>

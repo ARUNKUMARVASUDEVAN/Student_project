@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.urls import path
-from backend.views import home_page,user_registration,dashboard_view,upload_test_information,test_request,test_report,upload_result
+from backend.views import home_page,user_registration,dashboard_view,upload_test_information,test_request,test_report,upload_results,payment,bloodbank,otp
 
 from backend import views 
 from backend.forms import LoginForm
@@ -26,10 +26,13 @@ urlpatterns = [
     path('home_page/',home_page,name='GCLRAShomepage'),
     path('dashboard/',dashboard_view,name='dashboard'),
     path('',home_page,name='GCLRAShomepage'),
+    path('payment/',payment,name='payment'),
+    path('payment_confirmation/',otp,name='payment_confirmation'),
+    path('bloodbank/',bloodbank,name='bloodbank'),
     path('registration/',user_registration,name='User_registration_page'),
     path('authentication/',auth_views.LoginView.as_view(template_name='backend/authentication.html',authentication_form=LoginForm),name='authentication'),
     path('upload_test_info/',upload_test_information,name='upload_test_information'),
     path('test_request/',test_request,name='test_request'),
     path('test_report/',test_report,name='test_report'),
-    path('upload_result/',upload_result,name='upload_result')
+    path('upload_result/',upload_results,name='upload_result')
 ]

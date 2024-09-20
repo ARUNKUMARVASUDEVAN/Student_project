@@ -156,6 +156,10 @@ class TestRequestDetailsForm(forms.ModelForm):
 
 from .models import UploadTestInformation
 
+# forms.py
+from django import forms
+from .models import UploadTestInformation
+
 class UploadTestInformationForm(forms.ModelForm):
     class Meta:
         model = UploadTestInformation
@@ -164,29 +168,38 @@ class UploadTestInformationForm(forms.ModelForm):
             'test_name',       
             'test_fees',       
             'test_id',         
-            'patient_id',      
+            'image',
         )
         widgets = {
             'test_category': forms.Select(attrs={
-                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100'
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'id': 'id_test_category',
+                'onchange': 'populateTestDetails()'
             }),
             'test_name': forms.TextInput(attrs={
                 'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
-                'placeholder': 'Enter the test name'
+                'id': 'id_test_name',
+                'readonly': 'readonly'
             }),
-            'test_fees': forms.NumberInput(attrs={
+            'test_fees': forms.TextInput(attrs={
                 'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
-                'placeholder': 'Enter the test fees'
+                'id': 'id_test_fees',
+                'readonly': 'readonly'
             }),
             'test_id': forms.TextInput(attrs={
                 'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
-                'placeholder': 'Enter the test ID'
+                'id': 'id_test_id',
+                'readonly': 'readonly'
             }),
-            'patient_id': forms.TextInput(attrs={
+           'image': forms.URLInput(attrs={  
                 'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
-                'placeholder': 'Enter the patient ID'
-            }),
+                'id': 'id_image',
+                'readonly': 'readonly'
+            })
+
         }
+
+        
 
 from .models import upload_result
 
@@ -238,3 +251,76 @@ class UploadResultForm(forms.ModelForm):
                 'placeholder': 'Enter the token number'
             }),
         }
+
+    
+from .models import onlinepayments
+
+class OnlinePaymentForm(forms.ModelForm):
+    class Meta:
+        model = onlinepayments 
+        fields = (
+            'upi',
+            'amount',
+        )
+        widgets = {
+            'upi': forms.TextInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter your UPI ID'
+            }),
+            'amount': forms.NumberInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter the payment amount'
+            }),
+        }
+
+
+from django import forms
+from .models import Donor, blood_donation
+
+class DonorForm(forms.ModelForm):
+    class Meta:
+        model = Donor
+        fields = [
+            'donor_name',
+            'age',
+            'mobile_number',
+            'address',
+            'units',
+            'expiry_date',
+        ]
+        widgets = {
+            'donor_name': forms.TextInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter Donor Name'
+            }),
+            'age': forms.NumberInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter Age'
+            }),
+            'mobile_number': forms.TextInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter Mobile Number'
+            }),
+            'address': forms.TextInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter Address'
+            }),
+            'units': forms.NumberInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'Enter Units Available'
+            }),
+            'expiry_date': forms.DateInput(attrs={
+                'class': 'w-3/4 py-3 px-4 rounded-lg border bg-gray-100',
+                'placeholder': 'YYYY-MM-DD'
+            }),
+            
+
+            
+        }
+
+
+class BloodDonationForm(forms.ModelForm):
+    class Meta:
+        model = blood_donation
+        fields = ['patient_id', 'name', 'blood_group', 'donation_date']
+        

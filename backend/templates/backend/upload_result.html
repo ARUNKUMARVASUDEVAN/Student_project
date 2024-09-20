@@ -10,82 +10,85 @@
     <div class="max-w-lg mx-auto mt-10">
         <h1 class="text-2xl font-bold mb-6 text-center">Upload Test Result</h1>
 
-        <form method="post" action="." enctype="multipart/form-data">
+        <form method="post" action="." enctype="multipart/form-data" id="testForm">
             {% csrf_token %}
+            
+           
+        
             <div class="space-y-4">
                 <!-- Test ID Field -->
                 <div>
                     {{ form.test_id.label_tag }}
                     {{ form.test_id }}
                     {% if form.test_id.errors %}
-                        <div class="text-red-600">{{ form.test_id.errors }}</div>
+                        <div class="text-red-600" id="test_id_error">{{ form.test_id.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Patient ID Field -->
                 <div>
                     {{ form.patient_id.label_tag }}
                     {{ form.patient_id }}
                     {% if form.patient_id.errors %}
-                        <div class="text-red-600">{{ form.patient_id.errors }}</div>
+                        <div class="text-red-600" id="patient_id_error">{{ form.patient_id.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Doctor Name Field -->
                 <div>
                     {{ form.doctor_name.label_tag }}
                     {{ form.doctor_name }}
                     {% if form.doctor_name.errors %}
-                        <div class="text-red-600">{{ form.doctor_name.errors }}</div>
+                        <div class="text-red-600" id="doctor_name_error">{{ form.doctor_name.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Doctor Fees Field -->
                 <div>
                     {{ form.doctor_fees.label_tag }}
                     {{ form.doctor_fees }}
                     {% if form.doctor_fees.errors %}
-                        <div class="text-red-600">{{ form.doctor_fees.errors }}</div>
+                        <div class="text-red-600" id="doctor_fees_error">{{ form.doctor_fees.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Day Visited Field -->
                 <div>
                     {{ form.day_visited.label_tag }}
                     {{ form.day_visited }}
                     {% if form.day_visited.errors %}
-                        <div class="text-red-600">{{ form.day_visited.errors }}</div>
+                        <div class="text-red-600" id="day_visited_error">{{ form.day_visited.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Test Fees Field -->
                 <div>
                     {{ form.test_fees.label_tag }}
                     {{ form.test_fees }}
                     {% if form.test_fees.errors %}
-                        <div class="text-red-600">{{ form.test_fees.errors }}</div>
+                        <div class="text-red-600" id="test_fees_error">{{ form.test_fees.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Hospital Location Field -->
                 <div>
                     {{ form.hospital_location.label_tag }}
                     {{ form.hospital_location }}
                     {% if form.hospital_location.errors %}
-                        <div class="text-red-600">{{ form.hospital_location.errors }}</div>
+                        <div class="text-red-600" id="hospital_location_error">{{ form.hospital_location.errors }}</div>
                     {% endif %}
                 </div>
-
+        
                 <!-- Token Number Field -->
                 <div>
                     {{ form.token_number.label_tag }}
                     {{ form.token_number }}
                     {% if form.token_number.errors %}
-                        <div class="text-red-600">{{ form.token_number.errors }}</div>
+                        <div class="text-red-600" id="token_number_error">{{ form.token_number.errors }}</div>
                     {% endif %}
                 </div>
             </div>
-
+        
             <button type="submit" class="w-full py-3 px-6 bg-teal-500 hover:bg-teal-700 rounded-lg text-white text-lg font-bold mt-6">
                 Submit
             </button>
